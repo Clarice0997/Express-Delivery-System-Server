@@ -1,4 +1,4 @@
-package com.example.expressdeliverysystemserver.entity.controller;
+package com.example.expressdeliverysystemserver.controller;
 
 import com.example.expressdeliverysystemserver.entity.Account;
 import com.example.expressdeliverysystemserver.entity.Bridge;
