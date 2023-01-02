@@ -3,6 +3,7 @@ package com.example.expressdeliverysystemserver.controller;
 import com.example.expressdeliverysystemserver.entity.Account;
 import com.example.expressdeliverysystemserver.entity.Bridge;
 import com.example.expressdeliverysystemserver.entity.Login;
+import com.example.expressdeliverysystemserver.entity.UserInfo;
 import com.example.expressdeliverysystemserver.service.LoginService;
 import com.example.expressdeliverysystemserver.utils.Result;
 import io.swagger.annotations.ApiOperation;
@@ -39,5 +40,13 @@ public class LoginController {
         } else {
             return Result.error(bridge.getCode()).data("message", bridge.getMessage());
         }
+    }
+
+    // 获取用户信息接口
+    @ApiOperation(value = "获取用户信息")
+    @GetMapping("/userInfo")
+    public Result getInfo(){
+        UserInfo userInfo = loginService.getInfo();
+        return Result.ok(200).data("data", userInfo);
     }
 }

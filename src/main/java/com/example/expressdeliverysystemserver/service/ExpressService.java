@@ -1,9 +1,12 @@
 package com.example.expressdeliverysystemserver.service;
 
+import com.example.expressdeliverysystemserver.entity.Account;
 import com.example.expressdeliverysystemserver.entity.Bridge;
 import com.example.expressdeliverysystemserver.entity.Mail;
 import com.example.expressdeliverysystemserver.mapper.ExpressMapper;
+import com.example.expressdeliverysystemserver.utils.JWTUtils;
 import com.example.expressdeliverysystemserver.utils.TimeUtils;
+import com.example.expressdeliverysystemserver.utils.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,10 +39,49 @@ public class ExpressService {
         }
         // 拼接订单号
         String expressID = timestamp + randomString;
-        System.out.println(expressID);
+        // 保存订单号
+        mail.setExpressID(expressID);
 
+        // 获取用户对象 JWT
+        String token = UserRequest.getCurrentToken();
+        Account account = JWTUtils.verify(token);
+        mail.setUid(account.getUid());
+
+        // 插入寄件订单
+        if (expressMapper.insertExpress(mail) != 0) {
+            System.out.println("快件表插入成功");
+        } else {
+            bridge.setCode(400);
+            bridge.setMessage("寄件失败");
+        }
+
+        // 插入快件寄件人表
+        if (expressMapper.insertExpressSender(mail) != 0) {
+            System.out.println("快件寄件人表插入成功");
+        } else {
+            bridge.setCode(400);
+            bridge.setMessage("寄件失败");
+        }
+
+        // 插入快件收件人表
+        if (expressMapper.insertExpressReceiver(mail) != 0) {
+            System.out.println("快件收件人表插入成功");
+        } else {
+            bridge.setCode(400);
+            bridge.setMessage("寄件失败");
+        }
+
+        // 插入快件时间表
+        if (expressMapper.insertExpressDate(mail) != 0) {
+            System.out.println("快件时间表插入成功");
+        } else {
+            bridge.setCode(400);
+            bridge.setMessage("寄件失败");
+        }
+
+        // 返回成功寄件信息对象
         bridge.setCode(200);
-        bridge.setMessage(mail.toString());
+        bridge.setMessage(mail.getExpressID());
         return bridge;
     }
 }

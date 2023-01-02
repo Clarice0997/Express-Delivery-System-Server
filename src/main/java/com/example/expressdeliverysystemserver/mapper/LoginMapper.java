@@ -1,6 +1,7 @@
 package com.example.expressdeliverysystemserver.mapper;
 
 import com.example.expressdeliverysystemserver.entity.Account;
+import com.example.expressdeliverysystemserver.entity.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -10,6 +11,10 @@ public interface LoginMapper {
     // 查询账号是否存在 Mapper
     @Select("select * from users where username = #{username}")
     public Account getUser(String username);
+
+    // 查询账号信息
+    @Select("select uid,username,create_time,update_time from users where uid = #{uid}")
+    public UserInfo getUserInfo(int uid);
 
     // 查询账户ID Mapper
     @Select("select uid from users where username = #{username}")

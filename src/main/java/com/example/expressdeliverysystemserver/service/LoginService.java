@@ -3,8 +3,10 @@ package com.example.expressdeliverysystemserver.service;
 import com.example.expressdeliverysystemserver.entity.Account;
 import com.example.expressdeliverysystemserver.entity.Bridge;
 import com.example.expressdeliverysystemserver.entity.Login;
+import com.example.expressdeliverysystemserver.entity.UserInfo;
 import com.example.expressdeliverysystemserver.mapper.LoginMapper;
 import com.example.expressdeliverysystemserver.utils.JWTUtils;
+import com.example.expressdeliverysystemserver.utils.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -159,5 +161,16 @@ public class LoginService {
             bridge.setMessage("注册失败");
         }
         return bridge;
+    }
+
+    public UserInfo getInfo(){
+        // 获取用户对象 JWT
+        String token = UserRequest.getCurrentToken();
+        Account account = JWTUtils.verify(token);
+
+        // 查询用户信息
+        UserInfo userInfo = loginMapper.getUserInfo(account.getUid());
+
+        return userInfo;
     }
 }
