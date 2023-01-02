@@ -3,6 +3,7 @@ package com.example.expressdeliverysystemserver.service;
 import com.example.expressdeliverysystemserver.entity.Account;
 import com.example.expressdeliverysystemserver.entity.Bridge;
 import com.example.expressdeliverysystemserver.entity.Mail;
+import com.example.expressdeliverysystemserver.entity.Query;
 import com.example.expressdeliverysystemserver.mapper.ExpressMapper;
 import com.example.expressdeliverysystemserver.utils.JWTUtils;
 import com.example.expressdeliverysystemserver.utils.TimeUtils;
@@ -53,6 +54,7 @@ public class ExpressService {
         } else {
             bridge.setCode(400);
             bridge.setMessage("寄件失败");
+            return bridge;
         }
 
         // 插入快件寄件人表
@@ -61,6 +63,7 @@ public class ExpressService {
         } else {
             bridge.setCode(400);
             bridge.setMessage("寄件失败");
+            return bridge;
         }
 
         // 插入快件收件人表
@@ -69,6 +72,7 @@ public class ExpressService {
         } else {
             bridge.setCode(400);
             bridge.setMessage("寄件失败");
+            return bridge;
         }
 
         // 插入快件时间表
@@ -77,11 +81,42 @@ public class ExpressService {
         } else {
             bridge.setCode(400);
             bridge.setMessage("寄件失败");
+            return bridge;
         }
 
         // 返回成功寄件信息对象
         bridge.setCode(200);
         bridge.setMessage(mail.getExpressID());
+        return bridge;
+    }
+
+    /**
+     * query Service
+     *
+     * @return
+     */
+    public Bridge query(String expressID) {
+        Bridge bridge = new Bridge();
+        // 预处理
+        expressID = expressID.trim();
+        // 判断快递单号格式
+        if (expressID.length() != 16) {
+            bridge.setCode(400);
+            bridge.setMessage("快递单号格式有误");
+        }
+
+        // 判断快递单号是否存在
+        if (null == expressMapper.isExpress(expressID)) {
+            bridge.setCode(400);
+            bridge.setMessage("快递单号不存在");
+            return bridge;
+        }
+
+        // 查询快递信息
+        Query query = expressMapper.selectExpress(expressID);
+
+        bridge.setCode(200);
+        bridge.setQuery(query);
         return bridge;
     }
 }
