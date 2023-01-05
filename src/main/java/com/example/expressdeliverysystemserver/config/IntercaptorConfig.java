@@ -13,6 +13,6 @@ public class IntercaptorConfig implements WebMvcConfigurer {
                 // 拦截的路径
                 .addPathPatterns("/apis/express/mail")
                 // 排除登录接口
-                .excludePathPatterns("/system/user/**","/system/admin/login");
+                .excludePathPatterns("/system/user/**", "/system/admin/login");
     }
 }

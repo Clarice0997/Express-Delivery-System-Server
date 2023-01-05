@@ -73,7 +73,7 @@ public class AdminService {
 
         // 判断当前用户状态
         // 账号状态 0下班状态 1上班状态
-        if(adminMapper.getStatus(admin.getId()) == 0){
+        if (adminMapper.getStatus(admin.getId()) == 0) {
             login.setCode(400);
             login.setMessage("当前用户不可用");
             return login;
@@ -82,17 +82,6 @@ public class AdminService {
         // 判断账号密码是否相同
         // 获取原始密码
         String originPassword = adminMapper.getPassword(username);
-        // bcrypt判断密码是否相同
-//        if (bCryptPasswordEncoder.matches(password, originPassword)) {
-//            String token = JWTUtils.generateAdminToken(admin);
-//            login.setCode(200);
-//            login.setToken(token);
-//            return login;
-//        } else {
-//            login.setCode(403);
-//            login.setMessage("账号密码错误");
-//            return login;
-//        }
 
         // 未加密密码比对
         if (password.equals(originPassword)) {

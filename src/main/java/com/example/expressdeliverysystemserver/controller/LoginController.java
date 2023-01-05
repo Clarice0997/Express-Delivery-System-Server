@@ -45,7 +45,7 @@ public class LoginController {
     // 获取用户信息接口
     @ApiOperation(value = "获取用户信息")
     @GetMapping("/userInfo")
-    public Result getInfo(){
+    public Result getInfo() {
         UserInfo userInfo = loginService.getInfo();
         return Result.ok(200).data("data", userInfo);
     }

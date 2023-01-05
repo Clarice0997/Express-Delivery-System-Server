@@ -13,6 +13,7 @@ public class ExpressDeliverySystemServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(ExpressDeliverySystemServerApplication.class, args);
     }
+
     // 注入bcrypt
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

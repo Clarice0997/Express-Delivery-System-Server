@@ -18,10 +18,11 @@ public class JWTUtils {
 
     /**
      * 生成token
+     *
      * @param account
      * @return token
      */
-    public static String generateToken(Account account){
+    public static String generateToken(Account account) {
         Calendar instance = Calendar.getInstance();
         // 默认令牌过期时间7天
         instance.add(Calendar.DATE, 7);
@@ -37,10 +38,11 @@ public class JWTUtils {
 
     /**
      * 生成管理员token
+     *
      * @param admin
      * @return token
      */
-    public static String generateAdminToken(Admin admin){
+    public static String generateAdminToken(Admin admin) {
         Calendar instance = Calendar.getInstance();
         // 默认令牌过期时间7天
         instance.add(Calendar.DATE, 7);
@@ -58,6 +60,7 @@ public class JWTUtils {
 
     /**
      * 验证token合法性 成功返回用户对象
+     *
      * @param token
      * @return account
      */
@@ -79,6 +82,7 @@ public class JWTUtils {
 
     /**
      * 验证管理员token合法性 成功返回管理员用户对象
+     *
      * @param token
      * @return admin
      */

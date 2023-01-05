@@ -30,8 +30,8 @@ public class ExpressController {
 
     // 快件查询
     @ApiOperation(value = "快件查询")
-    @GetMapping ("/query/{expressID}")
-    public Result query(@PathVariable String expressID){
+    @GetMapping("/query/{expressID}")
+    public Result query(@PathVariable String expressID) {
         Bridge bridge = expressService.query(expressID);
         if (bridge.getCode() == 200) {
             return Result.ok(bridge.getCode()).data("data", bridge.getQuery());

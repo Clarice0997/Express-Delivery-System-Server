@@ -163,7 +163,7 @@ public class LoginService {
         return bridge;
     }
 
-    public UserInfo getInfo(){
+    public UserInfo getInfo() {
         // 获取用户对象 JWT
         String token = UserRequest.getCurrentToken();
         Account account = JWTUtils.verify(token);
