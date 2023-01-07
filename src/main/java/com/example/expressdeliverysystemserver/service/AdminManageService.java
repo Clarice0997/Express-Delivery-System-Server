@@ -36,7 +36,7 @@ public class AdminManageService {
         }
 
         // 查询快递员信息
-        List<Courier> couriers = adminManageMapper.selectCourier(pageNumber - 1, pageSize);
+        List<Courier> couriers = adminManageMapper.selectCourier((pageNumber - 1) * pageSize, pageSize);
 
         // 查询快递员数据条数
         Integer count = adminManageMapper.selectCountCourier();
