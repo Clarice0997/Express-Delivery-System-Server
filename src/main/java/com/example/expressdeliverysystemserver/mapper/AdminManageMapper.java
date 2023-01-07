@@ -5,6 +5,7 @@ import com.example.expressdeliverysystemserver.entity.Courier;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -33,4 +34,8 @@ public interface AdminManageMapper {
     // 插入快递员
     @Insert("insert into admin(username,password,nickname,phone,status,type,create_time,update_time) values(#{username},#{password},#{nickname},#{phone},'0','2',now(),now())")
     public Integer insertCourier(Admin admin);
+
+    // 修改快递员状态
+    @Update("update admin set status = #{status} where id = #{id}")
+    public Integer updateCourierStatus(Admin admin);
 }

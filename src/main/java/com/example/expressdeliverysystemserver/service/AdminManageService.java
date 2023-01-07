@@ -132,6 +132,37 @@ public class AdminManageService {
             bridge.setMessage("插入快递员失败");
             return bridge;
         }
+    }
 
+    /**
+     * updateCourierStatus Service
+     *
+     * @param admin
+     * @return
+     */
+    public Bridge updateCourierStatus(Admin admin) {
+        Bridge bridge = new Bridge();
+        // 判断id是否存在
+        if (admin == null) {
+            bridge.setCode(400);
+            bridge.setMessage("用户id不能为空");
+            return bridge;
+        }
+
+        // 修改数据库
+        int i = adminManageMapper.updateCourierStatus(admin);
+
+        // 判断是否修改成功
+        if (i == 1) {
+            // 返回成功对象
+            bridge.setCode(200);
+            bridge.setMessage("修改快递员状态成功");
+            return bridge;
+        } else {
+            // 返回失败对象
+            bridge.setCode(400);
+            bridge.setMessage("修改快递员状态失败");
+            return bridge;
+        }
     }
 }

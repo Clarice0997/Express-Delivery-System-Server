@@ -18,7 +18,8 @@ public class AdminManageController {
     // 查询快递员
     @ApiOperation(value = "查询快递员")
     @GetMapping("/admin")
-    public Result query(@RequestParam(value = "pageNumber", required = false) Integer pageNumber, @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+    public Result query(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         Bridge bridge = adminManageService.query(pageNumber, pageSize);
         if (bridge.getCode() == 200) {
             return Result.ok(bridge.getCode()).data("data", bridge.getCouriers()).data("count", bridge.getCount());
@@ -29,7 +30,6 @@ public class AdminManageController {
 
     // 根据ID查询快递员
     @ApiOperation(value = "根据ID查询快递员")
-
     @GetMapping("/admin/{id}")
     public Result queryById(@PathVariable Integer id) {
         Bridge bridge = adminManageService.queryById(id);
@@ -46,6 +46,18 @@ public class AdminManageController {
     public Result insertCourier(@RequestBody Admin admin) {
         System.out.println(admin);
         Bridge bridge = adminManageService.insertCourier(admin);
+        if (bridge.getCode() == 200) {
+            return Result.ok(bridge.getCode()).data("message", bridge.getMessage());
+        } else {
+            return Result.error(bridge.getCode()).data("message", bridge.getMessage());
+        }
+    }
+
+    // 修改快递员状态
+    @ApiOperation(value = "修改快递员状态")
+    @PutMapping("/admin/status")
+    public Result updateCourierStatus(@RequestBody Admin admin) {
+        Bridge bridge = adminManageService.updateCourierStatus(admin);
         if (bridge.getCode() == 200) {
             return Result.ok(bridge.getCode()).data("message", bridge.getMessage());
         } else {
