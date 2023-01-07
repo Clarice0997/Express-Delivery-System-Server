@@ -11,4 +11,5 @@ public class Bridge {
     private Query query;
     private List<Courier> couriers;
     private Courier courier;
+    private Integer count;
 }

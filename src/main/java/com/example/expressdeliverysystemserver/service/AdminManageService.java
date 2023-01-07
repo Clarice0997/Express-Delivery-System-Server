@@ -38,16 +38,20 @@ public class AdminManageService {
         // 查询快递员信息
         List<Courier> couriers = adminManageMapper.selectCourier(pageNumber - 1, pageSize);
 
+        // 查询快递员数据条数
+        Integer count = adminManageMapper.selectCountCourier();
+
         // 判断查询数据是否为空
-        if (couriers.isEmpty()) {
+        if (couriers.isEmpty() || count == null) {
             bridge.setCode(400);
-            bridge.setMessage("不存在快递员");
+            bridge.setMessage("数据不存在");
             return bridge;
         }
 
         // 返回查询快递员对象
         bridge.setCode(200);
         bridge.setCouriers(couriers);
+        bridge.setCount(count);
         return bridge;
     }
 

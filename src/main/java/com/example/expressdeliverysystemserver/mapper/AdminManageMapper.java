@@ -14,6 +14,10 @@ public interface AdminManageMapper {
     @Select("select id,username,nickname,phone,status from admin where type = '2' limit #{pageNumber},#{pageSize}")
     public List<Courier> selectCourier(Integer pageNumber, Integer pageSize);
 
+    // 查询快递员数据条数
+    @Select("select count(id) from admin where type = '2'")
+    public Integer selectCountCourier();
+
     // 根据ID查询快递员
     @Select("select id,username,nickname,phone,status from admin where type = '2' and id = #{id}")
     public Courier selectCourierById(Integer id);

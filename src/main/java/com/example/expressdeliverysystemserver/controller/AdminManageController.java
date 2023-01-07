@@ -3,7 +3,6 @@ package com.example.expressdeliverysystemserver.controller;
 import com.example.expressdeliverysystemserver.entity.Admin;
 import com.example.expressdeliverysystemserver.entity.Bridge;
 import com.example.expressdeliverysystemserver.service.AdminManageService;
-import com.example.expressdeliverysystemserver.service.ExpressService;
 import com.example.expressdeliverysystemserver.utils.Result;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class AdminManageController {
     public Result query(@RequestParam(value = "pageNumber", required = false) Integer pageNumber, @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         Bridge bridge = adminManageService.query(pageNumber, pageSize);
         if (bridge.getCode() == 200) {
-            return Result.ok(bridge.getCode()).data("data", bridge.getCouriers());
+            return Result.ok(bridge.getCode()).data("data", bridge.getCouriers()).data("count", bridge.getCount());
         } else {
             return Result.error(bridge.getCode()).data("message", bridge.getMessage());
         }
