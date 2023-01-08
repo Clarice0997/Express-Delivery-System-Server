@@ -19,7 +19,7 @@ public class AdminManageController {
     @ApiOperation(value = "查询快递员")
     @GetMapping("/admin")
     public Result query(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+                        @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         Bridge bridge = adminManageService.query(pageNumber, pageSize);
         if (bridge.getCode() == 200) {
             return Result.ok(bridge.getCode()).data("data", bridge.getCouriers()).data("count", bridge.getCount());
@@ -58,6 +58,31 @@ public class AdminManageController {
     @PutMapping("/admin/status")
     public Result updateCourierStatus(@RequestBody Admin admin) {
         Bridge bridge = adminManageService.updateCourierStatus(admin);
+        if (bridge.getCode() == 200) {
+            return Result.ok(bridge.getCode()).data("message", bridge.getMessage());
+        } else {
+            return Result.error(bridge.getCode()).data("message", bridge.getMessage());
+        }
+    }
+
+    // 修改快递员信息
+    @ApiOperation(value = "修改快递员信息")
+    @PutMapping("/admin")
+    public Result updateCourier(@RequestBody Admin admin) {
+        System.out.println(admin);
+        Bridge bridge = adminManageService.updateCourier(admin);
+        if (bridge.getCode() == 200) {
+            return Result.ok(bridge.getCode()).data("message", bridge.getMessage());
+        } else {
+            return Result.error(bridge.getCode()).data("message", bridge.getMessage());
+        }
+    }
+
+    // 删除快递员
+    @ApiOperation(value = "删除快递员")
+    @DeleteMapping("/admin/{id}")
+    public Result deleteCourier(@PathVariable Integer id) {
+        Bridge bridge = adminManageService.deleteCourier(id);
         if (bridge.getCode() == 200) {
             return Result.ok(bridge.getCode()).data("message", bridge.getMessage());
         } else {

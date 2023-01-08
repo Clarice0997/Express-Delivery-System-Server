@@ -2,10 +2,7 @@ package com.example.expressdeliverysystemserver.mapper;
 
 import com.example.expressdeliverysystemserver.entity.Admin;
 import com.example.expressdeliverysystemserver.entity.Courier;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -38,4 +35,12 @@ public interface AdminManageMapper {
     // 修改快递员状态
     @Update("update admin set status = #{status} where id = #{id}")
     public Integer updateCourierStatus(Admin admin);
+
+    // 修改快递员信息
+    @Update("update admin set nickname = #{nickname} , phone = #{phone} where username = #{username}")
+    public Integer updateCourier(Admin admin);
+
+    // 删除快递眼
+    @Delete("delete from admin where id = #{id}")
+    public Integer deleteCourier(Integer id);
 }

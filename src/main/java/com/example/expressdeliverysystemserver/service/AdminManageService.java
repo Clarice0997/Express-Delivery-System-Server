@@ -165,4 +165,56 @@ public class AdminManageService {
             return bridge;
         }
     }
+
+    /**
+     * updateCourier Service
+     *
+     * @param admin
+     * @return
+     */
+    public Bridge updateCourier(Admin admin) {
+        Bridge bridge = new Bridge();
+
+        // 修改数据库
+        int i = adminManageMapper.updateCourier(admin);
+
+        // 判断是否修改成功
+        if (i == 1) {
+            // 返回成功对象
+            bridge.setCode(200);
+            bridge.setMessage("修改快递员信息成功");
+            return bridge;
+        } else {
+            // 返回失败对象
+            bridge.setCode(400);
+            bridge.setMessage("修改快递员信息失败");
+            return bridge;
+        }
+    }
+
+    /**
+     * deleteCourier Service
+     *
+     * @param id
+     * @return
+     */
+    public Bridge deleteCourier(Integer id) {
+        Bridge bridge = new Bridge();
+
+        // 修改数据库
+        int i = adminManageMapper.deleteCourier(id);
+
+        // 判断是否修改成功
+        if (i == 1) {
+            // 返回成功对象
+            bridge.setCode(200);
+            bridge.setMessage("删除快递员成功");
+            return bridge;
+        } else {
+            // 返回失败对象
+            bridge.setCode(400);
+            bridge.setMessage("删除快递员失败");
+            return bridge;
+        }
+    }
 }
