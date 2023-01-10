@@ -34,11 +34,11 @@ public class AdminController {
     // 获取用户信息接口
     @ApiOperation(value = "获取用户信息")
     @GetMapping("/getInfo")
-    public Result getInfo(){
+    public Result getInfo() {
         // 获取token
         String token = UserRequest.getCurrentToken();
         // 判断token是否存在
-        if(token == null){
+        if (token == null) {
             return Result.error(401).data("message", "身份认证不通过");
         }
         // 解码JWT

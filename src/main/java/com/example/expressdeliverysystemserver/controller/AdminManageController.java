@@ -69,7 +69,6 @@ public class AdminManageController {
     @ApiOperation(value = "修改快递员信息")
     @PutMapping("/admin")
     public Result updateCourier(@RequestBody Admin admin) {
-        System.out.println(admin);
         Bridge bridge = adminManageService.updateCourier(admin);
         if (bridge.getCode() == 200) {
             return Result.ok(bridge.getCode()).data("message", bridge.getMessage());
@@ -85,6 +84,18 @@ public class AdminManageController {
         Bridge bridge = adminManageService.deleteCourier(id);
         if (bridge.getCode() == 200) {
             return Result.ok(bridge.getCode()).data("message", bridge.getMessage());
+        } else {
+            return Result.error(bridge.getCode()).data("message", bridge.getMessage());
+        }
+    }
+
+    // 获取所有在岗快递员
+    @ApiOperation(value = "获取所有在岗快递员")
+    @GetMapping("/admin/avaliableCourier")
+    public Result getAvaliableCourier() {
+        Bridge bridge = adminManageService.getAvaliableCourier();
+        if (bridge.getCode() == 200) {
+            return Result.ok(bridge.getCode()).data("data", bridge.getCouriers());
         } else {
             return Result.error(bridge.getCode()).data("message", bridge.getMessage());
         }

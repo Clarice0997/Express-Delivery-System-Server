@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static org.apache.logging.log4j.ThreadContext.isEmpty;
-
 @Service
 public class AdminManageService {
     // 注入Mapper
@@ -216,5 +214,28 @@ public class AdminManageService {
             bridge.setMessage("删除快递员失败");
             return bridge;
         }
+    }
+
+    /**
+     * getAvaliableCourier Service
+     *
+     * @return
+     */
+    public Bridge getAvaliableCourier() {
+        Bridge bridge = new Bridge();
+
+        // 获取所有在岗快递员
+        List<Courier> couriers = adminManageMapper.getAvaliableCourier();
+
+        // 判断数据是否存在
+        if (couriers.isEmpty()) {
+            bridge.setCode(400);
+            bridge.setMessage("数据不存在");
+            return bridge;
+        }
+
+        bridge.setCode(200);
+        bridge.setCouriers(couriers);
+        return bridge;
     }
 }

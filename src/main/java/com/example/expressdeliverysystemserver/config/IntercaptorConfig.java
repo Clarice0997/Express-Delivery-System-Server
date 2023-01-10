@@ -11,7 +11,7 @@ public class IntercaptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new JWTInterceptor())
                 // 拦截的路径
-                .addPathPatterns("/apis/express/mail")
+                .addPathPatterns("/apis/express/mail", "/apis/admin/**")
                 // 排除登录接口
                 .excludePathPatterns("/system/user/**", "/system/admin/login");
     }

@@ -40,7 +40,11 @@ public interface AdminManageMapper {
     @Update("update admin set nickname = #{nickname} , phone = #{phone} where username = #{username}")
     public Integer updateCourier(Admin admin);
 
-    // 删除快递眼
+    // 删除快递员
     @Delete("delete from admin where id = #{id}")
     public Integer deleteCourier(Integer id);
+
+    // 获取所有在岗快递员
+    @Select("select * from admin where type = '2' and status = '1'")
+    public List<Courier> getAvaliableCourier();
 }

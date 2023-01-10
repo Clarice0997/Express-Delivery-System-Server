@@ -10,6 +10,7 @@ public class Bridge {
     private String message;
     private Query query;
     private List<Courier> couriers;
+    private List<Express> expresses;
     private Courier courier;
     private Integer count;
 }
